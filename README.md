@@ -20,7 +20,7 @@ mov eax, dword ptr [rcx+0x128]   ->   mov eax, 0x3F333333 ; nop
 
 ## How to Use
 
-1. Download the utility from the **Releases** tab.
+1. [Download the utility](https://github.com/K4t3N0k/Redfall-Ads-Sensitivity-Fix/releases/download/v1/ads_fix.exe) from the **Releases** tab.
 2. Make sure the game is closed.
 3. Place `ads_fix.exe` in the game directory, right next to `Redfall.exe`.
    *(Default path: `...\Steam\steamapps\common\Redfall\Redfall\Binaries\Win64\`)*
