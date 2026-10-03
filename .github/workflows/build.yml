@@ -1,0 +1,39 @@
+name: Build and Release ADS Fix
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Устанавливаем PyInstaller и необходимую для скрипта библиотеку pefile
+          pip install pyinstaller pefile
+
+      - name: Build executable
+        run: python -m PyInstaller --onefile --noconsole ads_fix.py
+
+      - name: Release and Upload Asset
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: dist/ads_fix.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
